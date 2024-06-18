@@ -1,20 +1,20 @@
-#About TippleGeneric
+## About TippleGeneric
 
 TippleGeneric is a 'generic' loader for wine ISOs. TippleGeneric mounts your ISO using cdemu, runs an auto run from the CD and helps you to install it into a bottle.
 
 Winecfg and winetricks is used so you can configure global and application-specific settings.
 
-##Installation
+## Installation
 
 Clone the repository and run installDeps.sh to install dependencies.
 
 Tipple uses cdemu, zenity and wine.
 
-##Running
+## Running
 
 [See doc/HOWTO.md for tips about runnning](doc/HOWTO.md)
 
-##Testing and Screenshots
+## Testing and Screenshots
 
 [See doc/TESTING_MATRIX.csv to view a tab delimited CSV of what has been tested](doc/TESTING_MATRIX.csv)
 

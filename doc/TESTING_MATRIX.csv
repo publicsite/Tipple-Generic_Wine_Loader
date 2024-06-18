@@ -1,0 +1,73 @@
+AIKENS_ARTIFACT		windows 95	when mounting with cdemu  ... ERROR: Failed to load image: g-io-error-quark: GDBus.Error:net.sf.cdemu.CDEmuDaemon.errorMirage.ParserError: No parser can handle the image file! (36)
+ALIEN_VS_PREDATOR_2	windows 95	not enough dos memory. crashes when trying to install.
+Army Men	95	shockwave doesn't install. setup initilization failed. There may be a manual work-around. error number -117 when installing
+ARMY_MEN_AIR_ATTACK	XP	when mounting with cdemu  ... ERROR: Failed to load image: g-io-error-quark: GDBus.Error:net.sf.cdemu.CDEmuDaemon.errorMirage.ParserError: No parser can handle the image file! (36)
+Big Red Racing	msdos/windows 95	installer runs but doesn't actually install any files to HDD. says to reboot but i didn't try clicking yet
+BODYWORKS	windows 95	WORKS!
+BULL_RUN_1861	95	WORKS!
+CARMAGEDDON	msdos/windows 95	asks for password for uncut version. says requires direct x. Doesn't work with winetricks. Installing direct x from cdrom complains of missing inf file. trying without directx results in a black screen at game startup
+Carmen Sandiego Junior Detective	windows 95	won't install: 0134:err:sync:RtlpWaitForCriticalSection section 7BC6B440 "dlls/ntdll/loader.c: loader_section" wait timed out in thread 0134, blocked by 0130, retrying (60 sec)
+Colin Mcrae 1	windows 98	Installs OK but black screen on startup
+Commandos - Behind Enemy Lines	95	installs OK. Crashes on startup. I didn't try installing gstreamer plugins ... this may help idk?
+Dark Angael	windows 95	WORKS!
+DELTA_FORCE_2	windows 98	WORKS!
+DIV Games Studio	dos/windows 95	wine loader doesn't work for this + disc appears to be too damaged to install (I'm getting Input/Output errors whilst reading AUTORUN.INF
+DK_MULTIMEDIA_SAMPLER_DISC	dos/windows 95	crashes wine
+Dungeon Keeper	dos/windows 95	installs OK. when running, displays splash screen and crashes. I know it's possible to get this game working manually with dosbox
+ELITE_FORCES_WWII_NORMANDY	windows xp	ERROR: Failed to load image: g-io-error-quark: GDBus.Error:net.sf.cdemu.CDEmuDaemon.errorMirage.ParserError: No parser can handle the image file! (36)
+Fifa 97	windows 95	installs ok, plays intro when running but freezes. wine says DP SP Initialization failed: DPERR_UNAVAILABLE
+Gangsters - Organised Crime	XP	installs ok, plays intro when running but freezes (black screen)
+GTA and GTA London	XP	need to install directx using winetricks before running installer. no-cd
+HALF-LIFE_BLUESHIFT	windows 98	not enough memory when running executable after installation
+Half-Life Generation CSTRIKE	windows 98	game installs, menu sort of works but levels don't load
+Half-Life Generation HALFLIFE	windows 98	game installs and runs. cannot move, no keyboard input?
+Half-Life Generation BLUESHIFT	windows 98	not enough memory when running executable after installation
+Half-Life Generation OPFORCE	windows 98	requires half life to be installed (and half life doesn't work). Probably needs custom loader because of this fact.
+HEXEN2	windows 95	Installs OK but cannot load a dll when running in software rendering mode so fails and crashes when running in opengl mode
+INTERNATIONAL_RUGBY_LEAGUE	windows 95	Installs OK. select do not install direct x when installing. Black screen after intro vid.
+STAR WARS JEDI KNIGHT	windows 95	installs OK. when running I get "error could not load level"
+LEGO LOCO	windows 95/98	Installs OK ... when running ... Lego loco only runs in high colour 16-bit 800x600 1024x768 1280x1024 resolution please change one of these settings
+Lemmings 3D	windows 95	runs setup ok via dosbox but doesn't install anything. this is because it's running setup.exe instead of the other executable (not a bug with loader but can be fixed in custom loaders)
+Lemmings Paintball	windows 95	WORKS!
+Lemmings (Windows version)	windows 95	WORKS! says you have a 1 colour display. lemmings requires a 256 colour display.
+LOADSTAR	dos	generic loader doesn't work as loads setup.exe instead of loadstar.exe . This can be fixed with custom loader.
+MAABUS_CLASSIC	dos /windows 95	loads the wrong setup file. this can be fixed manually
+MDK	windows 95	installs OK but black screen at startup
+Micheal Owens World League Soccer 99	windows 98	installs but game doesn't run in either 3dfx graphics mode nor direct3d graphics mode
+Microsoft_Flight_Simulator_95	windows 95	installer loads but doesn't install
+MICROSOFT_GOLF_95	windows 95	installs ok but black screen on startup
+MICROSOFT_NICKELODEON_3D_MOVIE_MAKER	windows 95	WORKS! (but buggy)
+MICROSOFT_PRECISON_RACING_INDY_CAR_SIMULATOR	windows 95	when installing, says to install direct x. hangs when trying to install direct x. (note: winetricks direct x had already been installed)
+MONSTER TRUCK MADNESS	windows 95	asks for cd key, no graphics but i didn't enter a correct key (I doubt it'll help btw)
+Moose on the Loose	xp	WORKS!
+MORPHSTUDIO	windows 95	installer hangs.
+organic art	windows 95	WORKS! designer at least, screensavers not so sure about
+Panzer Commander	windows 98	WORKS! but graphics a bit funny
+PC Pup and Splat the Cat	windows 95	WORKS!
+Pockets	dos	installs OK but game doesn't run: invalid program file name INFO.PIF
+PRO_PINBALL_TIMESHOCK	windows 95	installs OK. crashes wine when loading the pinball table
+Rainbow 6	windows 98	doesn't install (black screen)
+Road Rash	windows 95	installs OK but doesn't run, crashes wine
+SeaSafety_The-safety_CD	windows xp	WORKS!
+SHATTERED_STEEL	windows 95	installer crashes wine
+Sid Meiers Alpha Centuri	windows 98	installs OK but black screen and then crashes wine on startup
+Slipstream	windows 95	installs but crashes wine when running (opens dosbox so it is possible we could write a custom loader using dosbox)
+DK Stowaway	windows xp	crashes wine
+SWIV	dos/windows 95	installer cannot install direct x. Game does not run. Does not help not installing direct x
+TAKEDA	windows xp	disc is damaged
+Theme Hospital	windows 95	WORKS!
+THEME_PARK_WORLD	windows 98	scratched disc
+The Simpsons Cartoon Studio	windows 95	WORKS!
+The Simpsons Virtual Springfield windows 95	WORKS!
+THE_ULTIMATE_DOOM_(95)	windows 95	WORKS!		
+DK THE WAY THINGS WORK	windows 3.1				crashes wine
+TITANIC ADVENTURE OUT OF TIME	windows 95	installs but says windows does not have enough memory
+TITANIC AN INTERACTIVE JOURNEY	windows 95	says needs a quicktime for windows installation but i thought i had that installed with winetricks. might be able to fix with custom loader
+tomb	95	WORKS! ok, i didn't try second cd
+TOMB_RAIDER_II_GOLDEN_MASK	windows 95	WORKS!
+TOMB RAIDER UNFINISHED BUSINESS		windows 95			WORKS!
+UNREAL	windows 95	WORKS! mouse is a bit juddery though.
+Wallace & Gromit FUN PACK	windows 95	fails to load using loader. there might be a manual work-around
+Worms Pinball	windows 95	installs OK but black screen upon startup
+Worms (1)	dos	installs OK but black screen when running with dos4w. Might be better to use dosbox and custom loader.
+Worms 2	windows 95	WORKS! if you do not use cutscenes!

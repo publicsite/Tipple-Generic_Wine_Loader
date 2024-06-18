@@ -26,7 +26,9 @@ A popup will appear telling you to select your 'default' or 'global' version of 
 
 ![Alt text](howto_screenshots/it_will_ask_for_default_version_of_windows.png?raw=true "GLOBAL default version")
 
-Do that then click OK/Apply
+Click OK, select your default version of windows then click OK/Apply
+
+![Alt text](howto_screenshots/select_default_version_of_windows.png?raw=true "Selecting the global default version of windoze")
 
 Winetricks will then run for your 'default' or 'global' version. You can install directx and quicktime if you wish through this.
 

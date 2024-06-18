@@ -1,4 +1,4 @@
-#Screenshots
+# Screenshots
 
 ![Alt text](testing_screenshots/3DPets1.png?raw=true "Splat the Cat and PC Pup")
 

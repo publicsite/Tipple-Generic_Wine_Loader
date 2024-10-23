@@ -193,13 +193,24 @@ sleep 1
 
 echo "${PWD}/$(basename "${starterProg}")"
 
-wine "$(basename "${starterProg}")"
+
+autoorloadselect="$(eval zenity --list --radiolist --column \"Selection\" --column \"Select\" TRUE \"Auto-Load\" FALSE \"Open To View\")"
+
+if [ "$autoorloadselect" = "Auto-Load" ]; then
+	wine "$(basename "${starterProg}")"
+else
+	wine "D:\\"
+fi
+
+
 
 sleep 5
 
 while [ "$(ps aux | grep [w]ineserver)" != "" ]; do
 sleep 5
 done
+
+sleep 3
 
 #firejail --quiet --private="${thepwd}" --private-cwd="/home/$(whoami)/$(dirname "${starterProg}")" --env=WINEPREFIX=/home/$(whoami)/.wine${numofbits} --env=WINEARCH=win${numofbits} sh -c "wine "$(basename "${starterProg}")""
 

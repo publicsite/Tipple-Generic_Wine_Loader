@@ -1,5 +1,7 @@
 # Screenshots
 
+##Wine
+
 ![Alt text](testing_screenshots/3DPets1.png?raw=true "Splat the Cat and PC Pup")
 
 ![Alt text](testing_screenshots/bodyworks.png?raw=true "Bodyworks")
@@ -37,3 +39,13 @@
 ![Alt text](testing_screenshots/windows_lemmings.png?raw=true "Lemmings for windows")
 
 ![Alt text](testing_screenshots/worms2.png?raw=true "Worms 2")
+
+##DOS
+
+![Alt text](testing_screenshots/worms1.png?raw=true "Worms 1")
+
+![Alt text](testing_screenshots/big_red_racing.png?raw=true "Big Red Racing")
+
+![Alt text](testing_screenshots/dungeon_keeper.png?raw=true "Dungeon Keeper")
+
+![Alt text](testing_screenshots/international_rugby_league.png?raw=true "International Rugby League")

@@ -2,7 +2,7 @@ AIKENS_ARTIFACT		windows 95	when mounting with cdemu  ... ERROR: Failed to load 
 ALIEN_VS_PREDATOR_2	windows 95	not enough dos memory. crashes when trying to install.
 Army Men	95	shockwave doesn't install. setup initilization failed. There may be a manual work-around. error number -117 when installing
 ARMY_MEN_AIR_ATTACK	XP	when mounting with cdemu  ... ERROR: Failed to load image: g-io-error-quark: GDBus.Error:net.sf.cdemu.CDEmuDaemon.errorMirage.ParserError: No parser can handle the image file! (36)
-Big Red Racing	msdos/windows 95	installer runs but doesn't actually install any files to HDD. says to reboot but i didn't try clicking yet
+Big Red Racing	msdos/windows 95	WORKS WITH DOS LOADER!
 BODYWORKS	windows 95	WORKS!
 BULL_RUN_1861	95	WORKS!
 CARMAGEDDON	msdos/windows 95	asks for password for uncut version. says requires direct x. Doesn't work with winetricks. Installing direct x from cdrom complains of missing inf file. trying without directx results in a black screen at game startup
@@ -13,7 +13,7 @@ Dark Angael	windows 95	WORKS!
 DELTA_FORCE_2	windows 98	WORKS!
 DIV Games Studio	dos/windows 95	wine loader doesn't work for this + disc appears to be too damaged to install (I'm getting Input/Output errors whilst reading AUTORUN.INF
 DK_MULTIMEDIA_SAMPLER_DISC	dos/windows 95	crashes wine
-Dungeon Keeper	dos/windows 95	installs OK. when running, displays splash screen and crashes. I know it's possible to get this game working manually with dosbox
+Dungeon Keeper	dos/windows 95	WORKS WITH DOS LOADER!
 ELITE_FORCES_WWII_NORMANDY	windows xp	ERROR: Failed to load image: g-io-error-quark: GDBus.Error:net.sf.cdemu.CDEmuDaemon.errorMirage.ParserError: No parser can handle the image file! (36)
 Fifa 97	windows 95	installs ok, plays intro when running but freezes. wine says DP SP Initialization failed: DPERR_UNAVAILABLE
 Gangsters - Organised Crime	XP	installs ok, plays intro when running but freezes (black screen)
@@ -24,7 +24,7 @@ Half-Life Generation HALFLIFE	windows 98	game installs and runs. cannot move, no
 Half-Life Generation BLUESHIFT	windows 98	not enough memory when running executable after installation
 Half-Life Generation OPFORCE	windows 98	requires half life to be installed (and half life doesn't work). Probably needs custom loader because of this fact.
 HEXEN2	windows 95	Installs OK but cannot load a dll when running in software rendering mode so fails and crashes when running in opengl mode
-INTERNATIONAL_RUGBY_LEAGUE	windows 95	Installs OK. select do not install direct x when installing. Black screen after intro vid.
+INTERNATIONAL_RUGBY_LEAGUE	dos/windows 95	WORKS WITH DOS LOADER!
 STAR WARS JEDI KNIGHT	windows 95	installs OK. when running I get "error could not load level"
 LEGO LOCO	windows 95/98	Installs OK ... when running ... Lego loco only runs in high colour 16-bit 800x600 1024x768 1280x1024 resolution please change one of these settings
 Lemmings 3D	windows 95	runs setup ok via dosbox but doesn't install anything. this is because it's running setup.exe instead of the other executable (not a bug with loader but can be fixed in custom loaders)
@@ -69,5 +69,5 @@ TOMB RAIDER UNFINISHED BUSINESS		windows 95			WORKS!
 UNREAL	windows 95	WORKS! mouse is a bit juddery though.
 Wallace & Gromit FUN PACK	windows 95	fails to load using loader. there might be a manual work-around
 Worms Pinball	windows 95	installs OK but black screen upon startup
-Worms (1)	dos	installs OK but black screen when running with dos4w. Might be better to use dosbox and custom loader.
+Worms (1)	dos	WORKS WITH DOS LOADER!
 Worms 2	windows 95	WORKS! if you do not use cutscenes!

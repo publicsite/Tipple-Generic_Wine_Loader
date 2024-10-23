@@ -17,6 +17,8 @@ fi
 
 pathToISO=""
 
+dosOrWine="$(eval zenity --list --radiolist --column \"Selection\" --column \"Type\" TRUE Wine FALSE DOS)"
+
 while true; do
 	pathToISO="$(zenity --title="Select an ISO file" --file-selection)"
 echo ${pathToISO} | rev | cut -c 1-4
@@ -86,17 +88,28 @@ done
  
 ##write run shell script
 
-cp -a install.sh "$HOME/WINEHOMES/${nameOfISO}/install.sh"
-chmod +x "$HOME/WINEHOMES/${nameOfISO}/install.sh"
+if [ "${dosOrWine}" = "DOS" ]; then
+
+	cp -a dos-install.sh "$HOME/WINEHOMES/${nameOfISO}/install.sh"
+	chmod +x "$HOME/WINEHOMES/${nameOfISO}/install.sh"
+
+	cp -a dos-run.sh "$HOME/WINEHOMES/${nameOfISO}/run.sh"
+	chmod +x "$HOME/WINEHOMES/${nameOfISO}/run.sh"
+elif [ "${dosOrWine}" = "Wine" ]; then
+
+	cp -a wine-install.sh "$HOME/WINEHOMES/${nameOfISO}/install.sh"
+	chmod +x "$HOME/WINEHOMES/${nameOfISO}/install.sh"
+
+	cp -a wine-run.sh "$HOME/WINEHOMES/${nameOfISO}/run.sh"
+	chmod +x "$HOME/WINEHOMES/${nameOfISO}/run.sh"
+fi
+
 
 cp -a load_secondary_cd.sh "$HOME/WINEHOMES/${nameOfISO}/"
 chmod +x "$HOME/WINEHOMES/${nameOfISO}/load_secondary_cd.sh"
 
 cp -a config_wine.sh "$HOME/WINEHOMES/${nameOfISO}/"
 chmod +x "$HOME/WINEHOMES/${nameOfISO}/config_wine.sh"
-
-cp -a run.sh "$HOME/WINEHOMES/${nameOfISO}/"
-chmod +x "$HOME/WINEHOMES/${nameOfISO}/run.sh"
 
 #yesno=0
 #yesno="$(zenity --question --title "Alert" --text "Would you like to try and run autorun.exe?")"

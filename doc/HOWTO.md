@@ -2,7 +2,11 @@
 
 Execute install_a_cd.sh
 
-A window will appear asking you to select your iso. Browse to the file and select OK.
+A window will appear asking you to select DOS or Wine. Choose your option.
+
+![Alt text](howto_screenshots/dos_or_wine.png?raw=true "Wine or DOS")
+
+Another popup will appear asking you to select your iso. Browse to the file and select OK.
 
 ![Alt text](howto_screenshots/selectISO.png?raw=true "Select your ISO")
 
@@ -21,6 +25,10 @@ This will then create a directory at ${HOME}/WINEHOMES with a skeleton bottle an
 ## Installing the application
 
 cd to your game in the WINEHOMES directory and run ./install.sh
+
+- If it is a DOS application, a popup will appear asking you to select an exe or bat from the mounted ISO to use to install.
+
+- If however it is a Wine application ...
 
 A popup will appear telling you to select your 'default' or 'global' version of windows.
 
@@ -52,3 +60,5 @@ The auto run should fire up now. You can install your application.
 ## Running the application
 
 Once the application is installed, run ./run.sh to run the application.
+
+- Note; if it is a DOS application, a popup will appear asking you to select the installed exe or bat from the hard drive.

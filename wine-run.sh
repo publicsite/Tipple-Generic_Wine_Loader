@@ -1,5 +1,8 @@
 #!/bin/sh
 
+OLD_UMASK="$(umask)"
+umask 0022
+
 if [ "$(which zenity)" = "" ]; then
 	echo "You need to install zenity to proceed."
 	exit
@@ -118,3 +121,5 @@ done
 sudo umount "${PWD}/mountpoint"
 cdemu unload all
 sudo rmdir "${PWD}/mountpoint"
+
+umask "${OLD_UMASK}"

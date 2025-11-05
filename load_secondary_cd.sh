@@ -1,5 +1,8 @@
 #!/bin/sh
 
+OLD_UMASK="$(umask)"
+umask 0022
+
 theCDlist=""
 old_IFS="$IFS"
 IFS="
@@ -12,3 +15,5 @@ IFS="$old_IFS"
 
 cdemu unload all
 cdemu load 0 "${theISO}"
+
+umask "${OLD_UMASK}"

@@ -1,5 +1,8 @@
 #!/bin/sh
 
+OLD_UMASK="$(umask)"
+umask 0022
+
 cd "$(dirname ${0})"
 
 if [ ! -d "$HOME/WINEHOMES" ]; then
@@ -118,3 +121,5 @@ chmod +x "$HOME/WINEHOMES/${nameOfISO}/config_wine.sh"
 #	cd "$HOME/WINEHOMES/${nameOfISO}"
 #	./run.sh
 #fi
+
+umask "${OLD_UMASK}"

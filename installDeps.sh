@@ -1,5 +1,8 @@
 #!/bin/sh
 
+OLD_UMASK="$(umask)"
+umask 0022
+
 #echo "You must have contrib added to /etc/apt/sources.list before you continue."
 #echo "Check now and type y if you are sure."
 
@@ -63,3 +66,5 @@ sudo dpkg -i ./*.deb
 mv ./*.deb out/
 
 cd ..
+
+umask "${OLD_UMASK}"

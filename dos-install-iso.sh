@@ -1,27 +1,59 @@
 #!/bin/sh
 
+oldwhich(){
+	aresult="$(which "$1" 2>&1 2>/dev/null)"
+	retval="$?"
+	if [ "$retval" = "0" ]; then
+		echo "$aresult"
+		return 0
+	else
+		return $retval
+	fi
+}
+
 OLD_UMASK="$(umask)"
 umask 0022
 
-if [ "$(which zenity)" = "" ]; then
+if [ "$(ps ax | grep cdemu-daemon | grep -v grep)" = "" ]; then
+	if [ "$(oldwhich cdemu-daemon)" = "" ]; then
+		echo "You need to install cdemu including it's daemon to continue."
+		exit
+	else
+		echo "Starting cdemu-daemon"
+		cdemu-daemon &
+	fi
+fi
+
+if [ "$(oldwhich zenity)" = "" ]; then
 	echo "You need to install zenity to proceed."
 	exit
 fi
 
-if [ "$(which dosbox)" = "" ]; then
+if [ "$(oldwhich dosbox)" = "" ]; then
 	echo "You need to install dosbox to proceed."
 	exit
 fi
 
-if [ "$(which cdemu)" = "" ]; then
+if [ "$(oldwhich cdemu)" = "" ]; then
 	echo "You need to install cdemu to proceed."
 	exit
 fi
 
 
-cd "$(dirname ${0})"
+cd "$(dirname ${0})/fakehome"
 
 thepwd="${PWD}"
+
+if [ ! -d "$HOME/sandwine" ] && [ "$(oldwhich pacman)" != "" ]; then
+	echo "You need to install sandwine and PyGObject with pip to continue."
+	exit
+fi
+
+if [ -d "$HOME/sandwine" ]; then
+	cd "$HOME/sandwine"
+	. .venv/bin/activate
+	cd "$thepwd"
+fi
 
 cdemu dpm-emulation 0 1
 cdemu bad-sector-emulation 0 1

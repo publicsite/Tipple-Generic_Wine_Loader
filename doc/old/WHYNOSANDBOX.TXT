@@ -1,0 +1,177 @@
+This version of wine tipple loader was modified to use firejail
+
+Unfortunately I hit this error
+
+dlls/winex11.drv/xvidmode.c:164: xf86vm_free_modes: Assertion `modes[0].dmDriverExtra == sizeof(XF86VidModeModeInfo *)' failed.
+
+Whenever I run something in wine.
+
+This might be down to the following bug ...
+
+https://bugs.winehq.org/show_bug.cgi?id=58515#c11
+
+... which was fixed in a newer version of wine, but I don't have that version on devuan at the moment
+
+_________________________
+
+I installed majaro linux and this had wine 11 instead of wine 10.
+
+Unfortunately
+
+Vulkan doesn't work with firejail. Wine requires vulkan
+
+https://github.com/netblue30/firejail/issues/6566
+
+______________________________________
+
+I tried sandwine, but it translates paths with spaces incorrectly
+
+for instance 
+
+WINEPREFIX="${thepwd}/.wine${numofbits}" HOME="${thepwd}" sandwine --network --pulseaudio --x11 --dotwine "${thepwd}/.wine${numofbits}:rw" --pass "${thepwd}/.dosbox:ro" --pass "${thepwd}/.cache/wine:rw" --pass "${thepwd}/mountpoint:ro" --pass "${thepwd}:rw" -- start /unix "${selection}"
+
+translates to:
+
+# bwrap \
+    --disable-userns \
+    --die-with-parent \
+    --hostname 6fc49aaaf11e \
+    --unshare-user --unshare-all --share-net \
+    --tmpfs / \
+    --ro-bind /bin /bin \
+    --dev /dev \
+    --dev-bind /dev/dri /dev/dri \
+    --dev-bind /dev/ntsync /dev/ntsync \
+    --ro-bind /etc /etc \
+    --tmpfs /home/user/WINEHOMES/BlockBuster/fakehome \
+    --bind /home/user/WINEHOMES/BlockBuster/fakehome /home/user/WINEHOMES/BlockBuster/fakehome \
+    --bind /home/user/WINEHOMES/BlockBuster/fakehome/.cache/wine /home/user/WINEHOMES/BlockBuster/fakehome/.cache/wine \
+    --ro-bind /home/user/WINEHOMES/BlockBuster/fakehome/.dosbox /home/user/WINEHOMES/BlockBuster/fakehome/.dosbox \
+    --bind /home/user/WINEHOMES/BlockBuster/fakehome/.wine32 /home/user/WINEHOMES/BlockBuster/fakehome/.wine \
+    --ro-bind /home/user/WINEHOMES/BlockBuster/fakehome/mountpoint /home/user/WINEHOMES/BlockBuster/fakehome/mountpoint \
+    --symlink usr/lib /lib \
+    --symlink usr/lib /lib64 \
+    --proc /proc \
+    --ro-bind /run/NetworkManager/resolv.conf /run/NetworkManager/resolv.conf \
+    --ro-bind /run/user/1000/pulse/native /run/user/1000/pulse/native \
+    --ro-bind /sys /sys \
+    --tmpfs /tmp \
+    --ro-bind /tmp/.X11-unix/X1 /tmp/.X11-unix/X1 \
+    --ro-bind /usr /usr \
+    --clearenv \
+    --setenv DISPLAY :1 \
+    --setenv HOME /home/user/WINEHOMES/BlockBuster/fakehome \
+    --setenv HOSTNAME 6fc49aaaf11e \
+    --setenv PATH /usr/local/bin:/usr/bin:/usr/bin:/usr/local/sbin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl \
+    --setenv PULSE_SERVER unix:/run/user/1000/pulse/native \
+    --setenv TERM xterm-256color \
+    --setenv USER user \
+    --setenv container sandwine \
+    --setenv wineserver /usr/bin/wineserver \
+    -- \
+    sh -c '"${wineserver}" -p0 && "$0" "$@" ; ret=$? ; "${wineserver}" -k ; exit ${ret}' \
+    script -e -q -c 'exec /usr/bin/wine start /unix '"'"'/home/user/WINEHOMES/BlockBuster/fakehome/.wine32/drive_c/users/user/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Doom Shareware for Windows 95/Doom95.lnk'"'"'' /dev/null
+
+
+NOTICE THE '"'"' NONSENSE BEFORE THE EXE PATH! THIS PREVENTS WINE FROM RUNNING THE PROGGY!
+
+Also running ${selection} without double quotes
+
+WINEPREFIX="${thepwd}/.wine${numofbits}" HOME="${thepwd}" sandwine --network --pulseaudio --x11 --dotwine "${thepwd}/.wine${numofbits}:rw" --pass "${thepwd}/.dosbox:ro" --pass "${thepwd}/.cache/wine:rw" --pass "${thepwd}/mountpoint:ro" --pass "${thepwd}:rw" -- start /unix ${selection}
+
+# bwrap \
+    --disable-userns \
+    --die-with-parent \
+    --hostname 6fc49aaaf11e \
+    --unshare-user --unshare-all --share-net \
+    --tmpfs / \
+    --ro-bind /bin /bin \
+    --dev /dev \
+    --dev-bind /dev/dri /dev/dri \
+    --dev-bind /dev/ntsync /dev/ntsync \
+    --ro-bind /etc /etc \
+    --tmpfs /home/user/WINEHOMES/BlockBuster/fakehome \
+    --bind /home/user/WINEHOMES/BlockBuster/fakehome /home/user/WINEHOMES/BlockBuster/fakehome \
+    --bind /home/user/WINEHOMES/BlockBuster/fakehome/.cache/wine /home/user/WINEHOMES/BlockBuster/fakehome/.cache/wine \
+    --ro-bind /home/user/WINEHOMES/BlockBuster/fakehome/.dosbox /home/user/WINEHOMES/BlockBuster/fakehome/.dosbox \
+    --bind /home/user/WINEHOMES/BlockBuster/fakehome/.wine32 /home/user/WINEHOMES/BlockBuster/fakehome/.wine \
+    --ro-bind /home/user/WINEHOMES/BlockBuster/fakehome/mountpoint /home/user/WINEHOMES/BlockBuster/fakehome/mountpoint \
+    --symlink usr/lib /lib \
+    --symlink usr/lib /lib64 \
+    --proc /proc \
+    --ro-bind /run/NetworkManager/resolv.conf /run/NetworkManager/resolv.conf \
+    --ro-bind /run/user/1000/pulse/native /run/user/1000/pulse/native \
+    --ro-bind /sys /sys \
+    --tmpfs /tmp \
+    --ro-bind /tmp/.X11-unix/X1 /tmp/.X11-unix/X1 \
+    --ro-bind /usr /usr \
+    --clearenv \
+    --setenv DISPLAY :1 \
+    --setenv HOME /home/user/WINEHOMES/BlockBuster/fakehome \
+    --setenv HOSTNAME 6fc49aaaf11e \
+    --setenv PATH /usr/local/bin:/usr/bin:/usr/bin:/usr/local/sbin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl \
+    --setenv PULSE_SERVER unix:/run/user/1000/pulse/native \
+    --setenv TERM xterm-256color \
+    --setenv USER user \
+    --setenv container sandwine \
+    --setenv wineserver /usr/bin/wineserver \
+    -- \
+    sh -c '"${wineserver}" -p0 && "$0" "$@" ; ret=$? ; "${wineserver}" -k ; exit ${ret}' \
+    script -e -q -c 'exec /usr/bin/wine start /unix /home/user/WINEHOMES/BlockBuster/fakehome/.wine32/drive_c/users/user/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Doom Shareware for Windows 95/Doom95.lnk /dev/null
+
+
+
+BUT THIS DOESN'T WORK EITHER, BECAUSE IT'S A PATH WITH SPACES!
+
+THEN I TRY TO TRICK IT with ...
+
+selection="$(printf "%q" "${selection}")"
+WINEPREFIX="${thepwd}/.wine${numofbits}" HOME="${thepwd}" sandwine --network --pulseaudio --x11 --dotwine "${thepwd}/.wine${numofbits}:rw" --pass "${thepwd}/.dosbox:ro" --pass "${thepwd}/.cache/wine:rw" --pass "${thepwd}/mountpoint:ro" --pass "${thepwd}:rw" -- start ${selection}
+
+
+THE RESULT:
+
+# bwrap \
+    --disable-userns \
+    --die-with-parent \
+    --hostname dad441f8803c \
+    --unshare-user --unshare-all --share-net \
+    --tmpfs / \
+    --ro-bind /bin /bin \
+    --dev /dev \
+    --dev-bind /dev/dri /dev/dri \
+    --dev-bind /dev/ntsync /dev/ntsync \
+    --ro-bind /etc /etc \
+    --tmpfs /home/user/WINEHOMES/BlockBuster/fakehome \
+    --bind /home/user/WINEHOMES/BlockBuster/fakehome /home/user/WINEHOMES/BlockBuster/fakehome \
+    --bind /home/user/WINEHOMES/BlockBuster/fakehome/.cache/wine /home/user/WINEHOMES/BlockBuster/fakehome/.cache/wine \
+    --ro-bind /home/user/WINEHOMES/BlockBuster/fakehome/.dosbox /home/user/WINEHOMES/BlockBuster/fakehome/.dosbox \
+    --bind /home/user/WINEHOMES/BlockBuster/fakehome/.wine32 /home/user/WINEHOMES/BlockBuster/fakehome/.wine \
+    --ro-bind /home/user/WINEHOMES/BlockBuster/fakehome/mountpoint /home/user/WINEHOMES/BlockBuster/fakehome/mountpoint \
+    --symlink usr/lib /lib \
+    --symlink usr/lib /lib64 \
+    --proc /proc \
+    --ro-bind /run/NetworkManager/resolv.conf /run/NetworkManager/resolv.conf \
+    --ro-bind /run/user/1000/pulse/native /run/user/1000/pulse/native \
+    --ro-bind /sys /sys \
+    --tmpfs /tmp \
+    --ro-bind /tmp/.X11-unix/X1 /tmp/.X11-unix/X1 \
+    --ro-bind /usr /usr \
+    --clearenv \
+    --setenv DISPLAY :1 \
+    --setenv HOME /home/user/WINEHOMES/BlockBuster/fakehome \
+    --setenv HOSTNAME dad441f8803c \
+    --setenv PATH /usr/local/bin:/usr/bin:/usr/bin:/usr/local/sbin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl \
+    --setenv PULSE_SERVER unix:/run/user/1000/pulse/native \
+    --setenv TERM xterm-256color \
+    --setenv USER user \
+    --setenv container sandwine \
+    --setenv wineserver /usr/bin/wineserver \
+    -- \
+    sh -c '"${wineserver}" -p0 && "$0" "$@" ; ret=$? ; "${wineserver}" -k ; exit ${ret}' \
+    script -e -q -c 'exec /usr/bin/wine start '"'"'/home/user/WINEHOMES/BlockBuster/fakehome/.wine32/drive_c/users/user/AppData/Roaming/Microsoft/Windows/Start\'"'"' '"'"'Menu/Programs/Doom\'"'"' '"'"'Shareware\'"'"' '"'"'for\'"'"' '"'"'Windows\'"'"' 95/Doom95.lnk' /dev/null
+
+THIS WAS BECAUSE sandwine cannot find lnk paths for exes
+__________________
+
+This has now been fixed and TippleLoader can use sandwine sandbox!

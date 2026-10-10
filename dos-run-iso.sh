@@ -1,19 +1,40 @@
 #!/bin/sh
 
+oldwhich(){
+	aresult="$(which "$1" 2>&1 2>/dev/null)"
+	retval="$?"
+	if [ "$retval" = "0" ]; then
+		echo "$aresult"
+		return 0
+	else
+		return $retval
+	fi
+}
+
 OLD_UMASK="$(umask)"
 umask 0022
 
-if [ "$(which zenity)" = "" ]; then
+if [ "$(ps ax | grep cdemu-daemon | grep -v grep)" = "" ]; then
+	if [ "$(oldwhich cdemu-daemon)" = "" ]; then
+		echo "You need to install cdemu including it's daemon to continue."
+		exit
+	else
+		echo "Starting cdemu-daemon"
+		cdemu-daemon &
+	fi
+fi
+
+if [ "$(oldwhich zenity)" = "" ]; then
 	echo "You need to install zenity to proceed."
 	exit
 fi
 
-if [ "$(which dosbox)" = "" ]; then
+if [ "$(oldwhich dosbox)" = "" ]; then
 	echo "You need to install wine to proceed."
 	exit
 fi
 
-if [ "$(which cdemu)" = "" ]; then
+if [ "$(oldwhich cdemu)" = "" ]; then
 	echo "You need to install cdemu to proceed."
 	exit
 fi
@@ -21,9 +42,20 @@ fi
 
 
 
-cd "$(dirname ${0})"
+cd "$(dirname ${0})/fakehome"
 
 thepwd="${PWD}"
+
+if [ ! -d "$HOME/sandwine" ] && [ "$(oldwhich pacman)" != "" ]; then
+	echo "You need to install sandwine and PyGObject with pip to continue."
+	exit
+fi
+
+if [ -d "$HOME/sandwine" ]; then
+	cd "$HOME/sandwine"
+	. .venv/bin/activate
+	cd "$thepwd"
+fi
 
 themountpoint="mountpoint"
 
@@ -113,9 +145,15 @@ echo "eval zenity --list --radiolist --column \"Selection\" --column \"lnk\" ${c
 		echo "$thepath"
 		sleep 2
 
-		#todo: add firejail
-		#firejail --private="${PWD}" wine start "$thepath"
-		dosbox -fullscreen -c "${thepath}" -conf "${thepwd}/${basename dosboxConf}"
+		if [ "$usefirejail" = "true" ]; then
+			if [ "$(oldwhich wine32)" != "" ]; then
+				firejail --quiet --profile=wine --private="${thepwd}" --private-cwd="/home/$(whoami)" --env=WINEPREFIX=/home/$(whoami)/.wine${numofbits} --env=WINEARCH=win${numofbits} sh -c "dosbox -fullscreen -c "${thepath}" -conf "${thepwd}/${basename dosboxConf}""
+			else
+				firejail --quiet --profile=wine --private="${thepwd}" --private-cwd="/home/$(whoami)" --env=WINEPREFIX=/home/$(whoami)/.wine${numofbits} sh -c "dosbox -fullscreen -c "${thepath}" -conf "${thepwd}/${basename dosboxConf}""
+			fi
+		else
+			dosbox -fullscreen -c "${thepath}" -conf "${thepwd}/${basename dosboxConf}"
+		fi
 	else
 
 		pathToEXE=""
@@ -155,7 +193,15 @@ echo "eval zenity --list --radiolist --column \"Selection\" --column \"lnk\" ${c
 
 			printf "exit\n" >> "${thepwd}/$(basename ${dosboxConf})"
 
-			dosbox -conf "${thepwd}/$(basename ${dosboxConf})"
+			if [ "$usefirejail" = "true" ]; then
+				if [ "$(oldwhich wine32)" != "" ]; then
+					firejail --quiet --profile=wine --private="${thepwd}" --private-cwd="/home/$(whoami)" --env=WINEPREFIX=/home/$(whoami)/.wine${numofbits} --env=WINEARCH=win${numofbits} sh -c "dosbox -conf "$(basename ${dosboxConf})""
+				else
+					firejail --quiet --profile=wine --private="${thepwd}" --private-cwd="/home/$(whoami)" --env=WINEPREFIX=/home/$(whoami)/.wine${numofbits} sh -c "dosbox -conf "$(basename ${dosboxConf})""
+				fi
+			else
+				dosbox -conf "${thepwd}/$(basename ${dosboxConf})"
+			fi
 		elif [ "$(printf "%s" "${pathToEXE}" | grep -o "^${thepwd}/dos_c_drive")" != "" ]; then
 			thelength="$(expr length "${thepwd}/dos_c_drive")"
 
@@ -171,7 +217,16 @@ echo "eval zenity --list --radiolist --column \"Selection\" --column \"lnk\" ${c
 			printf "C:\\%s\n" "${dosPathToEXE}" >> "${thepwd}/$(basename ${dosboxConf})"
 
 			printf "exit\n" >> "${thepwd}/$(basename ${dosboxConf})"
-			dosbox -conf "${thepwd}/$(basename ${dosboxConf})"
+
+			if [ "$usefirejail" = "true" ]; then
+				if [ "$(oldwhich wine32)" != "" ]; then
+					firejail --quiet --profile=wine --private="${thepwd}" --private-cwd="/home/$(whoami)" --env=WINEPREFIX=/home/$(whoami)/.wine${numofbits} --env=WINEARCH=win${numofbits} sh -c "dosbox -conf "$(basename ${dosboxConf})""
+				else
+					firejail --quiet --profile=wine --private="${thepwd}" --private-cwd="/home/$(whoami)" --env=WINEPREFIX=/home/$(whoami)/.wine${numofbits} sh -c "dosbox -conf "$(basename ${dosboxConf})""
+				fi
+			else
+				dosbox -conf "${thepwd}/$(basename ${dosboxConf})"
+			fi
 		fi
 
 	fi

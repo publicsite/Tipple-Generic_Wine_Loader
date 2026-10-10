@@ -1,9 +1,11 @@
 #!/bin/sh
 
+usefirejail="true"
+
 OLD_UMASK="$(umask)"
 umask 0022
 
-cd "$(dirname ${0})"
+cd "$(dirname ${0})/fakehome"
 
 winedir="$(find . -type d -name ".wine*")"
 
@@ -18,6 +20,6 @@ fi
 export WINEPREFIX="${HOME}/$(echo "${winedir}" | cut -c 3-)"
 export WINEARCH="win${numofbits}"
 
-firejail --private="${PWD}" winecfg
+winecfg
 
 umask "${OLD_UMASK}"

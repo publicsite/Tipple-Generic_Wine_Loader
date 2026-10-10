@@ -4,6 +4,8 @@ TippleGeneric is a 'generic' loader for wine ISOs. TippleGeneric mounts your ISO
 
 Winecfg and winetricks is used so you can configure global and application-specific settings.
 
+This version was modified to include support for sandwine sandboxing.
+
 ## Installation
 
 Clone the repository and run installDeps.sh to install dependencies.
